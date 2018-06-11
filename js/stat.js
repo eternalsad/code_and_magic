@@ -1,4 +1,11 @@
 'use strict';
+function findMax(names, times) {
+
+};
+function drawHistogram(ctx, names, times) {
+
+};
+
 window.renderStatistics = function (ctx, names, times) {
     ctx.fillStyle ='rgba(0, 0, 0, 0.7)';
     ctx.strokeRect(110, 20, 420, 270);
