@@ -1,13 +1,53 @@
 'use strict';
-function findMax(names, times) {
+/*
+Функция нахождения максимального значения в массиве
+@param массив times
+@ret возвращает индекс максимального значения
+ */
+function findMax(times) {
+    var max = -1;
+    var maxIndex;
+    for (var i = 0; i < times.length; i++) {
+        if (times[i] > max)
+            max = times[i]
+            maxIndex = i;
+    }
+    return maxIndex;
+ };
 
-};
+ /*
+ Функция рисующая гистограмму соотвествующего размера
+ @param объект канвас и массивы names times
+ */
 function drawHistogram(ctx, names, times) {
+    var histogramHeight = 150; //px
+    var histogramWidth = 40;   //px 
+    var indent = 50; // px
+    var step = histogramWidth / times[maxIndex];
+    var barHeight = 20;
+    var initialX = 120;
+    var initialY = 64;
+    var lineHeight = 15;
+    var maxIndex = findMax(times);
 
+    ctx.fillStyle = '#000';
+    ctx.font = '16px PT Mono';
+
+    ctx.fillText('Ура Вы победили! Список результатов:', initialX, initialY);
+    ctx.fillText('Худшее время у игрока - ' + names[maxIndex] + ' : ' + times[maxIndex].toFixed(2), 120, 56);
+
+    for (var i = 0; i < times.length; i++) {
+        ctx.fillStyle = 'rgba(0, 0, 255, ' + Math.random() + ')';
+        if (names[i] == 'Вы') {
+            ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+        }
+        ctx.fillRect(initialX, initialY + indent * i, times[i] * step, barHeight);  // прямоугольники
+        ctx.fillText(names[i], initialX + times[i] * step + indent, initialY + indent * i + lineHeight); // текст сдвинуть вправо       
+    }
 };
 
 window.renderStatistics = function (ctx, names, times) {
-    ctx.fillStyle ='rgba(0, 0, 0, 0.7)';
+    ctx.fillStyle ='rgba(0, 0, 0, 0.7)'; // draw shadow
     ctx.strokeRect(110, 20, 420, 270);
     ctx.fillRect(110, 20, 420, 270);
 
@@ -15,9 +55,5 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.strokeRect(100, 10, 420, 270);
     ctx.fillRect(100, 10, 420, 270);
 
-    ctx.fillStyle = '#000';
-    ctx.font = '14px PT Mono';
-
-    ctx.fillText('Вы победили', 120, 40);
-
+    drawHistogram(ctx, names, times);
 };
