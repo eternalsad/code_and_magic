@@ -1,9 +1,9 @@
 'use strict';
-/*
-Функция нахождения максимального значения в массиве
-@param массив times
-@ret возвращает индекс максимального значения
- */
+/** 
+*Функция нахождения максимального значения в массиве
+*@param массив times
+*@ret возвращает индекс максимального значения
+*/
 function findMax(times) {
     var max = -1;
     var maxIndex;
@@ -23,18 +23,20 @@ function drawHistogram(ctx, names, times) {
     var histogramHeight = 150; //px
     var histogramWidth = 40;   //px 
     var indent = 50; // px
-    var step = histogramWidth / times[maxIndex];
-    var barHeight = 20;
-    var initialX = 120;
-    var initialY = 64;
-    var lineHeight = 15;
-    var maxIndex = findMax(times);
-
+    var barHeight = 20; //px
+    var initialX = 120; //px
+    var initialY = 40; //px
+    var lineHeight = 15; //px
+    var maxIndex = findMax(times); //px
+    var step = histogramWidth / times[maxIndex]; //px
+    var fontSize = 16;
     ctx.fillStyle = '#000';
-    ctx.font = '16px PT Mono';
+    ctx.font = fontSize + 'px PT Mono';
 
     ctx.fillText('Ура Вы победили! Список результатов:', initialX, initialY);
-    ctx.fillText('Худшее время у игрока - ' + names[maxIndex] + ' : ' + times[maxIndex].toFixed(2), 120, 56);
+    ctx.fillText('Худшее время у игрока - ' + names[maxIndex] + ' : ' + times[maxIndex].toFixed(2), initialX, initialY + fontSize);
+    
+    initialY = 64;
 
     for (var i = 0; i < times.length; i++) {
         ctx.fillStyle = 'rgba(0, 0, 255, ' + Math.random() + ')';
@@ -47,7 +49,7 @@ function drawHistogram(ctx, names, times) {
 };
 
 window.renderStatistics = function (ctx, names, times) {
-    ctx.fillStyle ='rgba(0, 0, 0, 0.7)'; // draw shadow
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; // draw shadow
     ctx.strokeRect(110, 20, 420, 270);
     ctx.fillRect(110, 20, 420, 270);
 
