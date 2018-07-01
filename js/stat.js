@@ -16,8 +16,8 @@ function findMax(times) {
  };
 
  /*
- Функция рисующая гистограмму соотвествующего размера
- @param объект канвас и массивы names times
+ *Функция рисующая гистограмму соотвествующего размера
+ *@param объект канвас и массивы names times
  */
 function drawHistogram(ctx, names, times) {
     var histogramHeight = 150; //px
@@ -29,7 +29,7 @@ function drawHistogram(ctx, names, times) {
     var lineHeight = 15; //px
     var maxIndex = findMax(times); //px
     var step = histogramWidth / times[maxIndex]; //px
-    var fontSize = 16;
+    var fontSize = 16; 
     ctx.fillStyle = '#000';
     ctx.font = fontSize + 'px PT Mono';
 
