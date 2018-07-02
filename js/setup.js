@@ -1,5 +1,6 @@
 'use strict';
-
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
 var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var WIZARD_SECOND_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var COAT_COLORS = ['rgb(101, 137, 164)',  'rgb(241, 43, 107)',  'rgb(146, 100, 161)',  'rgb(56, 159, 117)',  'rgb(215, 210, 55)',  'rgb(0, 0, 0)'];
@@ -45,9 +46,53 @@ var fillSimilarList = function (){
     similarListElement.appendChild(fragment);
 }
 
-var userDialog = document.querySelector(' .setup');
+// по нажатию на элемент .setup-open удалить класс hidden 
+
+var setup = document.querySelector(' .setup');
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = document.querySelector('.setup-close');
+
+var onPopupEscPress = function(evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+        closePopup();
+    }
+};
+
+var openPopup = function () {
+    setup.classList.remove('hidden');
+    document.addEventListener('keydown', onPopupEscPress);
+}
+
+var closePopup = function () {
+    setup.classList.add('hidden');
+    document.removeEventListener('keydown', onPopupEscPress);
+}
+
+setupOpen.addEventListener('click', function(){
+    openPopup();
+});
+
+setupClose.addEventListener('click', function(){
+    closePopup();
+});
+
+setupOpen.addEventListener('keydown', function(evt){
+    if (evt.keyCode === ENTER_KEYCODE){
+        openPopup();
+    }
+});
+
+setupClose.addEventListener('keydown', function(evt){
+    if (evt.keyCode === ESC_KEYCODE){
+        closePopup();
+    }
+});
+
+
+
 var similarListElement = document.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-userDialog.classList.remove('hidden');
+
 document.querySelector(' .setup-similar').classList.remove('hidden');
 fillSimilarList(similarListElement, similarWizardTemplate);
+
